@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="230.67px" height="100px" viewBox="0 0 230.67 100" enable-background="new 0 0 230.67 100" xml:space="preserve">
+<g id="Layer_1" display="none">
+	
+		<image display="inline" overflow="visible" opacity="0.45" width="226" height="100" xlink:href="X:\Cloud Drives\Dropbox\Europhotonics\Barcelona\Lectures\Bio Imaging\Adaptive Optics\AOM-Prensentation-Joe\Images\TwoPointCrossover.png"  transform="matrix(1 0 0 1 4.6699 0)">
+	</image>
+</g>
+<g id="Layer_2">
+	<rect x="51.337" y="7.11" fill="#BE1E2D" width="178.584" height="9.667"/>
+	<rect x="51.337" y="25.11" fill="#2E3192" width="178.584" height="9.667"/>
+	<rect x="51.337" y="64.444" fill="#BE1E2D" width="44.583" height="9.666"/>
+	<rect x="51.337" y="82.444" fill="#2E3192" width="44.583" height="9.666"/>
+	<rect x="95.92" y="64.444" fill="#2E3192" width="134.001" height="9.666"/>
+	<rect x="95.92" y="82.444" fill="#BE1E2D" width="134.001" height="9.666"/>
+	<g>
+		<g>
+			<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="95.92" y1="0" x2="95.92" y2="2"/>
+			
+				<line fill="none" stroke="#000000" stroke-miterlimit="10" stroke-dasharray="3.84,3.84" x1="95.92" y1="5.84" x2="95.92" y2="96.081"/>
+			<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="95.92" y1="98" x2="95.92" y2="100"/>
+		</g>
+	</g>
+	<text transform="matrix(1 0 0 1 5.0156 23.6094)" font-family="'MyriadPro-Regular'" font-size="12">Parents</text>
+	<text transform="matrix(1 0 0 1 100.6265 52.7759)" font-family="'MyriadPro-Regular'" font-size="12">crossover point</text>
+	<text transform="matrix(1 0 0 1 -0.1201 79.9419)" font-family="'MyriadPro-Regular'" font-size="12">Children</text>
+</g>
+</svg>

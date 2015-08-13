@@ -1,0 +1,29 @@
+\select@language {english}
+\select@language {slovene}
+\contentsline {chapter}{Povzetek}{}{chapter*.2}
+\select@language {english}
+\contentsline {chapter}{Abstract}{}{chapter*.3}
+\select@language {slovene}
+\contentsline {chapter}{\numberline {1}Uvod}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Teorija}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Generiranje dreves}{3}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}L-sistemi}{3}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Space Coloniolization}{3}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Parametri\IeC {\v c}ni modeli}{3}{subsection.2.1.3}
+\contentsline {section}{\numberline {2.2}Genetski algoritmi}{3}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Algoritem}{5}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Inicializacija}{6}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Izbor star\IeC {\v s}ev}{6}{subsection.2.2.3}
+\contentsline {subsubsection}{Izbor z ruletnim kolesmo}{6}{section*.5}
+\contentsline {subsubsection}{Univerzalno stohasti\IeC {\v c}no vzor\IeC {\v c}enje}{8}{section*.6}
+\contentsline {subsubsection}{Elitizem}{8}{section*.7}
+\contentsline {subsection}{\numberline {2.2.4}Genetski operatorji}{8}{subsection.2.2.4}
+\contentsline {subsubsection}{Kri\IeC {\v z}anje}{9}{section*.8}
+\contentsline {subsubsection}{Mutacije}{10}{section*.9}
+\contentsline {subsection}{\numberline {2.2.5}Prekinitev}{11}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {2.2.6}Prednosti in slabost}{11}{subsection.2.2.6}
+\contentsline {chapter}{\numberline {3}Implementacija}{13}{chapter.3}
+\contentsline {section}{\numberline {3.1}Generiranje dreves}{13}{section.3.1}
+\contentsline {section}{\numberline {3.2}Genetski algoritimi}{13}{section.3.2}
+\contentsline {chapter}{\numberline {4}Rezultati}{15}{chapter.4}
+\contentsline {chapter}{Literatura}{17}{chapter*.10}

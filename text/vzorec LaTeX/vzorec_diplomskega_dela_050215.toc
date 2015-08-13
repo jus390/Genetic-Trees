@@ -1,0 +1,14 @@
+\select@language {english}
+\select@language {slovene}
+\contentsline {chapter}{Povzetek}{}{chapter*.2}
+\select@language {english}
+\contentsline {chapter}{Abstract}{}{chapter*.3}
+\select@language {slovene}
+\contentsline {chapter}{\numberline {1}Uvod}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Sklicevanje na besedilne konstrukte}{3}{chapter.2}
+\contentsline {chapter}{\numberline {3}Plovke: slike in tabele}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Formati slik}{5}{section.3.1}
+\contentsline {chapter}{\numberline {4}PDF/A}{9}{chapter.4}
+\contentsline {chapter}{\numberline {5}Kaj pa literatura}{11}{chapter.5}
+\contentsline {chapter}{\numberline {6}Sklepne ugotovitve}{13}{chapter.6}
+\contentsline {chapter}{Literatura}{15}{chapter*.5}
