@@ -809,37 +809,37 @@ function stohasticSelection(fitness,n){
 }
 
 function crossOver(tree1,tree2){//enaka drevesa?
-	var seed=[tree1.seed, tree2.seed];
+	var seed=[tree1.gene.seed, tree2.gene.seed];
 	//console.log(seed);
-	var initalBranchLength=[tree1.initalBranchLength, tree2.initalBranchLength];
+	var initalBranchLength=[tree1.gene.initalBranchLength, tree2.gene.initalBranchLength];
 	//console.log(initalBranchLength);
-	var lengthFalloffFactor=[tree1.lengthFalloffFactor, tree2.lengthFalloffFactor];
+	var lengthFalloffFactor=[tree1.gene.lengthFalloffFactor, tree2.gene.lengthFalloffFactor];
 	//console.log(lengthFalloffFactor);
-	var lengthFalloffPower=[tree1.lengthFalloffPower, tree2.lengthFalloffPower];
+	var lengthFalloffPower=[tree1.gene.lengthFalloffPower, tree2.gene.lengthFalloffPower];
 	//console.log(lengthFalloffPower);
-	var clumpMax=[tree1.clumpMax, tree2.clumpMax];
+	var clumpMax=[tree1.gene.clumpMax, tree2.gene.clumpMax];
 	//console.log(clumpMax);
-	var clumpMin=[tree1.clumpMin, tree2.clumpMin];
+	var clumpMin=[tree1.gene.clumpMin, tree2.gene.clumpMin];
 	//console.log(clumpMin);
-	var branchFactor=[tree1.branchFactor, tree2.branchFactor];
+	var branchFactor=[tree1.gene.branchFactor, tree2.gene.branchFactor];
 	//console.log(branchFactor);
-	var dropAmount=[tree1.dropAmount, tree2.dropAmount];
+	var dropAmount=[tree1.gene.dropAmount, tree2.gene.dropAmount];
 	//console.log(dropAmount);
-	var growAmount=[tree1.growAmount, tree2.growAmount];
+	var growAmount=[tree1.gene.growAmount, tree2.gene.growAmount];
 	//console.log(growAmount);
-	var sweepAmount=[tree1.sweepAmount, tree2.sweepAmount];
+	var sweepAmount=[tree1.gene.sweepAmount, tree2.gene.sweepAmount];
 	//console.log(sweepAmount);
-	var climbRate=[tree1.climbRate, tree2.climbRate];
+	var climbRate=[tree1.gene.climbRate, tree2.gene.climbRate];
 	//console.log(climbRate);
-	var trunkKink=[tree1.trunkKink, tree2.trunkKink];
+	var trunkKink=[tree1.gene.trunkKink, tree2.gene.trunkKink];
 	//console.log(trunkKink);
-	var taperRate=[tree1.taperRate, tree2.taperRate];
+	var taperRate=[tree1.gene.taperRate, tree2.gene.taperRate];
 	//console.log(taperRate);
-	var radiusFalloffRate=[tree1.radiusFalloffRate, tree2.radiusFalloffRate];
+	var radiusFalloffRate=[tree1.gene.radiusFalloffRate, tree2.gene.radiusFalloffRate];
 	//console.log(radiusFalloffRate);
-	var twistRate=[tree1.twistRate, tree2.twistRate];
+	var twistRate=[tree1.gene.twistRate, tree2.gene.twistRate];
 	//console.log(twistRate);
-	var trunkLength=[tree1.trunkLength, tree2.trunkLength];
+	var trunkLength=[tree1.gene.trunkLength, tree2.gene.trunkLength];
 	//console.log(trunkLength);
 	
 	
@@ -880,23 +880,23 @@ function crossOver(tree1,tree2){//enaka drevesa?
 		"twigMaterial":"BranchType6"}
 		
 	);
-	
-	newTree1.seed=seed[crossSel[0]];
-	newTree1.initalBranchLength=initalBranchLength[crossSel[1]];
-	newTree1.lengthFalloffFactor=lengthFalloffFactor[crossSel[2]];
-	newTree1.lengthFalloffPower=lengthFalloffPower[crossSel[3]];
-	newTree1.clumpMax=clumpMax[crossSel[4]];
-	newTree1.clumpMin=clumpMin[crossSel[5]];
-	newTree1.branchFactor=branchFactor[crossSel[6]];
-	newTree1.dropAmount=dropAmount[crossSel[7]];
-	newTree1.growAmount=growAmount[crossSel[8]];
-	newTree1.sweepAmount=sweepAmount[crossSel[9]];
-	newTree1.climbRate=climbRate[crossSel[10]];
-	newTree1.trunkKink=trunkKink[crossSel[11]];
-	newTree1.taperRate=taperRate[crossSel[12]];
-	newTree1.radiusFalloffRate=radiusFalloffRate[crossSel[13]];
-	newTree1.twistRate=twistRate[crossSel[14]];
-	newTree1.trunkLength=trunkLength[crossSel[15]];
+	newTree1.gene=new Object();
+	newTree1.gene.seed=seed[crossSel[0]];
+	newTree1.gene.initalBranchLength=initalBranchLength[crossSel[1]];
+	newTree1.gene.lengthFalloffFactor=lengthFalloffFactor[crossSel[2]];
+	newTree1.gene.lengthFalloffPower=lengthFalloffPower[crossSel[3]];
+	newTree1.gene.clumpMax=clumpMax[crossSel[4]];
+	newTree1.gene.clumpMin=clumpMin[crossSel[5]];
+	newTree1.gene.branchFactor=branchFactor[crossSel[6]];
+	newTree1.gene.dropAmount=dropAmount[crossSel[7]];
+	newTree1.gene.growAmount=growAmount[crossSel[8]];
+	newTree1.gene.sweepAmount=sweepAmount[crossSel[9]];
+	newTree1.gene.climbRate=climbRate[crossSel[10]];
+	newTree1.gene.trunkKink=trunkKink[crossSel[11]];
+	newTree1.gene.taperRate=taperRate[crossSel[12]];
+	newTree1.gene.radiusFalloffRate=radiusFalloffRate[crossSel[13]];
+	newTree1.gene.twistRate=twistRate[crossSel[14]];
+	newTree1.gene.trunkLength=trunkLength[crossSel[15]];
 	
 	var newTree2 = new Tree(
 		{"seed":seed[Math.abs(crossSel[0]-1)],
@@ -925,23 +925,23 @@ function crossOver(tree1,tree2){//enaka drevesa?
 		"twigMaterial":"BranchType6"}
 		
 	);
-	
-	newTree2.seed=seed[Math.abs(crossSel[0]-1)];
-	newTree2.initalBranchLength=initalBranchLength[Math.abs(crossSel[1]-1)];
-	newTree2.lengthFalloffFactor=lengthFalloffFactor[Math.abs(crossSel[2]-1)];
-	newTree2.lengthFalloffPower=lengthFalloffPower[Math.abs(crossSel[3]-1)];
-	newTree2.clumpMax=clumpMax[Math.abs(crossSel[4]-1)];
-	newTree2.clumpMin=clumpMin[Math.abs(crossSel[5]-1)];
-	newTree2.branchFactor=branchFactor[Math.abs(crossSel[6]-1)];
-	newTree2.dropAmount=dropAmount[Math.abs(crossSel[7]-1)];
-	newTree2.growAmount=growAmount[Math.abs(crossSel[8]-1)];
-	newTree2.sweepAmount=sweepAmount[Math.abs(crossSel[9]-1)];
-	newTree2.climbRate=climbRate[Math.abs(crossSel[10]-1)];
-	newTree2.trunkKink=trunkKink[Math.abs(crossSel[11]-1)];
-	newTree2.taperRate=taperRate[Math.abs(crossSel[12]-1)];
-	newTree2.radiusFalloffRate=radiusFalloffRate[Math.abs(crossSel[13]-1)];
-	newTree2.twistRate=twistRate[Math.abs(crossSel[14]-1)];
-	newTree2.trunkLength=trunkLength[Math.abs(crossSel[15]-1)];
+	newTree2.gene=new Object();
+	newTree2.gene.seed=seed[Math.abs(crossSel[0]-1)];
+	newTree2.gene.initalBranchLength=initalBranchLength[Math.abs(crossSel[1]-1)];
+	newTree2.gene.lengthFalloffFactor=lengthFalloffFactor[Math.abs(crossSel[2]-1)];
+	newTree2.gene.lengthFalloffPower=lengthFalloffPower[Math.abs(crossSel[3]-1)];
+	newTree2.gene.clumpMax=clumpMax[Math.abs(crossSel[4]-1)];
+	newTree2.gene.clumpMin=clumpMin[Math.abs(crossSel[5]-1)];
+	newTree2.gene.branchFactor=branchFactor[Math.abs(crossSel[6]-1)];
+	newTree2.gene.dropAmount=dropAmount[Math.abs(crossSel[7]-1)];
+	newTree2.gene.growAmount=growAmount[Math.abs(crossSel[8]-1)];
+	newTree2.gene.sweepAmount=sweepAmount[Math.abs(crossSel[9]-1)];
+	newTree2.gene.climbRate=climbRate[Math.abs(crossSel[10]-1)];
+	newTree2.gene.trunkKink=trunkKink[Math.abs(crossSel[11]-1)];
+	newTree2.gene.taperRate=taperRate[Math.abs(crossSel[12]-1)];
+	newTree2.gene.radiusFalloffRate=radiusFalloffRate[Math.abs(crossSel[13]-1)];
+	newTree2.gene.twistRate=twistRate[Math.abs(crossSel[14]-1)];
+	newTree2.gene.trunkLength=trunkLength[Math.abs(crossSel[15]-1)];
 	//console.log("verts: "+myTree.verts.length+", polygons: "+myTree.faces.length+", twigPolygons: "+myTree.facesTwig.length);
 	var newtrees=[];
 	
@@ -951,37 +951,37 @@ function crossOver(tree1,tree2){//enaka drevesa?
 }
 
 function crossOver2(tree1,tree2){
-	var seed=[tree1.seed, tree2.seed];
+	var seed=[tree1.gene.seed, tree2.gene.seed];
 	//console.log(seed);
-	var initalBranchLength=[tree1.initalBranchLength, tree2.initalBranchLength];
+	var initalBranchLength=[tree1.gene.initalBranchLength, tree2.geneinitalBranchLength];
 	//console.log(initalBranchLength);
-	var lengthFalloffFactor=[tree1.lengthFalloffFactor, tree2.lengthFalloffFactor];
+	var lengthFalloffFactor=[tree1.gene.lengthFalloffFactor, tree2.gene.lengthFalloffFactor];
 	//console.log(lengthFalloffFactor);
-	var lengthFalloffPower=[tree1.lengthFalloffPower, tree2.lengthFalloffPower];
+	var lengthFalloffPower=[tree1.gene.lengthFalloffPower, tree2.gene.lengthFalloffPower];
 	//console.log(lengthFalloffPower);
-	var clumpMax=[tree1.clumpMax, tree2.clumpMax];
+	var clumpMax=[tree1.gene.clumpMax, tree2.gene.clumpMax];
 	//console.log(clumpMax);
-	var clumpMin=[tree1.clumpMin, tree2.clumpMin];
-    //console.log(clumpMin);
-	var branchFactor=[tree1.branchFactor, tree2.branchFactor];
+	var clumpMin=[tree1.gene.clumpMin, tree2.gene.clumpMin];
+	//console.log(clumpMin);
+	var branchFactor=[tree1.gene.branchFactor, tree2.gene.branchFactor];
 	//console.log(branchFactor);
-	var dropAmount=[tree1.dropAmount, tree2.dropAmount];
+	var dropAmount=[tree1.gene.dropAmount, tree2.gene.dropAmount];
 	//console.log(dropAmount);
-	var growAmount=[tree1.growAmount, tree2.growAmount];
+	var growAmount=[tree1.gene.growAmount, tree2.gene.growAmount];
 	//console.log(growAmount);
-	var sweepAmount=[tree1.sweepAmount, tree2.sweepAmount];
+	var sweepAmount=[tree1.gene.sweepAmount, tree2.gene.sweepAmount];
 	//console.log(sweepAmount);
-	var climbRate=[tree1.climbRate, tree2.climbRate];
+	var climbRate=[tree1.gene.climbRate, tree2.gene.climbRate];
 	//console.log(climbRate);
-	var trunkKink=[tree1.trunkKink, tree2.trunkKink];
+	var trunkKink=[tree1.gene.trunkKink, tree2.gene.trunkKink];
 	//console.log(trunkKink);
-	var taperRate=[tree1.taperRate, tree2.taperRate];
+	var taperRate=[tree1.gene.taperRate, tree2.gene.taperRate];
 	//console.log(taperRate);
-	var radiusFalloffRate=[tree1.radiusFalloffRate, tree2.radiusFalloffRate];
+	var radiusFalloffRate=[tree1.gene.radiusFalloffRate, tree2.gene.radiusFalloffRate];
 	//console.log(radiusFalloffRate);
-	var twistRate=[tree1.twistRate, tree2.twistRate];
+	var twistRate=[tree1.gene.twistRate, tree2.gene.twistRate];
 	//console.log(twistRate);
-	var trunkLength=[tree1.trunkLength, tree2.trunkLength];
+	var trunkLength=[tree1.gene.trunkLength, tree2.gene.trunkLength];
 	//console.log(trunkLength);
 	
 	var newTree = new Tree(
@@ -1011,23 +1011,23 @@ function crossOver2(tree1,tree2){
 		"twigMaterial":"BranchType6"}
 		
 	);
-	
-	newTree.seed=(seed[0]+seed[1])/2;
-	newTree.initalBranchLength=(initalBranchLength[0]+initalBranchLength[1])/2;
-	newTree.lengthFalloffFactor=(lengthFalloffFactor[0]+lengthFalloffFactor[1])/2;
-	newTree.lengthFalloffPower=(lengthFalloffPower[0]+lengthFalloffPower[1])/2;
-	newTree.clumpMax=(clumpMax[0]+clumpMax[1])/2;
-	newTree.clumpMin=(clumpMin[0]+clumpMin[1])/2;
-	newTree.branchFactor=(branchFactor[0]+branchFactor[1])/2;
-	newTree.dropAmount=(dropAmount[0]+dropAmount[1])/2;
-	newTree.growAmount=(growAmount[0]+growAmount[1])/2;
-	newTree.sweepAmount=(sweepAmount[0]+sweepAmount[1])/2;
-	newTree.climbRate=(climbRate[0]+climbRate[1])/2;
-	newTree.trunkKink=(trunkKink[0]+trunkKink[1])/2;
-	newTree.taperRate=(taperRate[0]+taperRate[1])/2;
-	newTree.radiusFalloffRate=(radiusFalloffRate[0]+radiusFalloffRate[1])/2;
-	newTree.twistRate=(twistRate[0]+twistRate[1])/2;
-	newTree.trunkLength=(trunkLength[0]+trunkLength[1])/2;
+	newTree.gene=new Object();
+	newTree.gene.seed=(seed[0]+seed[1])/2;
+	newTree.gene.initalBranchLength=(initalBranchLength[0]+initalBranchLength[1])/2;
+	newTree.gene.lengthFalloffFactor=(lengthFalloffFactor[0]+lengthFalloffFactor[1])/2;
+	newTree.gene.lengthFalloffPower=(lengthFalloffPower[0]+lengthFalloffPower[1])/2;
+	newTree.gene.clumpMax=(clumpMax[0]+clumpMax[1])/2;
+	newTree.gene.clumpMin=(clumpMin[0]+clumpMin[1])/2;
+	newTree.gene.branchFactor=(branchFactor[0]+branchFactor[1])/2;
+	newTree.gene.dropAmount=(dropAmount[0]+dropAmount[1])/2;
+	newTree.gene.growAmount=(growAmount[0]+growAmount[1])/2;
+	newTree.gene.sweepAmount=(sweepAmount[0]+sweepAmount[1])/2;
+	newTree.gene.climbRate=(climbRate[0]+climbRate[1])/2;
+	newTree.gene.trunkKink=(trunkKink[0]+trunkKink[1])/2;
+	newTree.gene.taperRate=(taperRate[0]+taperRate[1])/2;
+	newTree.gene.radiusFalloffRate=(radiusFalloffRate[0]+radiusFalloffRate[1])/2;
+	newTree.gene.twistRate=(twistRate[0]+twistRate[1])/2;
+	newTree.gene.trunkLength=(trunkLength[0]+trunkLength[1])/2;
 	
 	var newtrees=[];
 	newtrees.push(newTree);
@@ -1040,97 +1040,97 @@ function mutateTree(myTree, mutationAmount){
 
 	var seed=Math.round(Math.random()*4000);
 	if(rFac>mutationAmount){
-		seed=myTree.seed;
+		seed=myTree.gene.seed;
 	}
 	
 	rFac=Math.random();
 	var initalBranchLength=0.5+Math.random()*0.3;
 	if(rFac>mutationAmount){
-		initalBranchLength=myTree.initalBranchLength;
+		initalBranchLength=myTree.gene.initalBranchLength;
 	}
 		
 	rFac=Math.random();
 	var lengthFalloffFactor=0.5+Math.random()*0.3;
 	if(rFac>mutationAmount){
-		lengthFalloffFactor=myTree.lengthFalloffFactor;
+		lengthFalloffFactor=myTree.gene.lengthFalloffFactor;
 	}
 		
 	rFac=Math.random();
 	var lengthFalloffPower=0.3+Math.random()*0.4;
 	if(rFac>mutationAmount){
-		lengthFalloffPower=myTree.lengthFalloffPower;
+		lengthFalloffPower=myTree.gene.lengthFalloffPower;
 	}
 		
 	rFac=Math.random();
 	var clumpMax=0.4+Math.random()*0.1;
 	if(rFac>mutationAmount){
-		clumpMax=myTree.clumpMax;
+		clumpMax=myTree.gene.clumpMax;
 	}
 		
 	rFac=Math.random();
 	var clumpMin=clumpMax-Math.random()*0.4;
 	if(rFac>mutationAmount){
-		clumpMin=myTree.clumpMin;
+		clumpMin=myTree.gene.clumpMin;
 	}
 		
 	rFac=Math.random();
 	var branchFactor=2.0+Math.random()*2.0;
 	if(rFac>mutationAmount){
-		branchFactor=myTree.branchFactor;
+		branchFactor=myTree.gene.branchFactor;
 	}
 		
 	rFac=Math.random();
 	var dropAmount=-0.3+Math.random()*0.6;
 	if(rFac>mutationAmount){
-		dropAmount=myTree.dropAmount;
+		dropAmount=myTree.gene.dropAmount;
 	}
 		
 	rFac=Math.random();
 	var growAmount=-0.5+Math.random()*1.5;
 	if(rFac>mutationAmount){
-		growAmount=myTree.growAmount;
+		growAmount=myTree.gene.growAmount;
 	}
 		
 	rFac=Math.random();
 	var sweepAmount=-0.05+Math.random()*0.1;
 	if(rFac>mutationAmount){
-		sweepAmount=myTree.sweepAmount;
+		sweepAmount=myTree.gene.sweepAmount;
 	}
 		
 	rFac=Math.random();
 	var climbRate=0.05+Math.random()*0.95;
 	if(rFac>mutationAmount){
-		climbRate=myTree.climbRate;
+		climbRate=myTree.gene.climbRate;
 	}
 		
 	rFac=Math.random();
 	var trunkKink=Math.random()*0.3;
 	if(rFac>mutationAmount){
-		trunkKink=myTree.trunkKink;
+		trunkKink=myTree.gene.trunkKink;
 	}
 		
 	rFac=Math.random();
 	var taperRate=0.7+Math.random()*0.3;
 	if(rFac>mutationAmount){
-		taperRate=myTree.taperRate;
+		taperRate=myTree.gene.taperRate;
 	}
 		
 	rFac=Math.random();
 	var radiusFalloffRate=0.74+Math.random()*0.05;
 	if(rFac>mutationAmount){
-		radiusFalloffRate=myTree.radiusFalloffRate;
+		radiusFalloffRate=myTree.gene.radiusFalloffRate;
 	}
 		
 	rFac=Math.random();
 	var twistRate=Math.random()*10.0;
 	if(rFac>mutationAmount){
-		twistRate=myTree.twistRate;
+		twistRate=myTree.gene.twistRate;
 	}
 		
 	rFac=Math.random();
 	var trunkLength=1.5+Math.random()*1.6;
 	if(rFac>mutationAmount){
-		trunkLength=myTree.trunkLength;
+		trunkLength=myTree.gene.trunkLength;
 	}
 	
 	var mutatedTree = new Tree(
@@ -1160,23 +1160,23 @@ function mutateTree(myTree, mutationAmount){
 		"twigMaterial":"BranchType6"}
 		
 	);
-	
-	mutatedTree.seed=seed;
-	mutatedTree.initalBranchLength=initalBranchLength;
-	mutatedTree.lengthFalloffFactor=lengthFalloffFactor;
-	mutatedTree.lengthFalloffPower=lengthFalloffPower;
-	mutatedTree.clumpMax=clumpMax;
-	mutatedTree.clumpMin=clumpMin;
-	mutatedTree.branchFactor=branchFactor;
-	mutatedTree.dropAmount=dropAmount;
-	mutatedTree.growAmount=growAmount;
-	mutatedTree.sweepAmount=sweepAmount;
-	mutatedTree.climbRate=climbRate;
-	mutatedTree.trunkKink=trunkKink;
-	mutatedTree.taperRate=taperRate;
-	mutatedTree.radiusFalloffRate=radiusFalloffRate;
-	mutatedTree.twistRate=twistRate;
-	mutatedTree.trunkLength=trunkLength;
+	mutatedTree.gene=new Object();
+	mutatedTree.gene.seed=seed;
+	mutatedTree.gene.initalBranchLength=initalBranchLength;
+	mutatedTree.gene.lengthFalloffFactor=lengthFalloffFactor;
+	mutatedTree.gene.lengthFalloffPower=lengthFalloffPower;
+	mutatedTree.gene.clumpMax=clumpMax;
+	mutatedTree.gene.clumpMin=clumpMin;
+	mutatedTree.gene.branchFactor=branchFactor;
+	mutatedTree.gene.dropAmount=dropAmount;
+	mutatedTree.gene.growAmount=growAmount;
+	mutatedTree.gene.sweepAmount=sweepAmount;
+	mutatedTree.gene.climbRate=climbRate;
+	mutatedTree.gene.trunkKink=trunkKink;
+	mutatedTree.gene.taperRate=taperRate;
+	mutatedTree.gene.radiusFalloffRate=radiusFalloffRate;
+	mutatedTree.gene.twistRate=twistRate;
+	mutatedTree.gene.trunkLength=trunkLength;
 	//console.log("verts: "+myTree.verts.length+", polygons: "+myTree.faces.length+", twigPolygons: "+myTree.facesTwig.length);
 	
 	return mutatedTree;
@@ -1226,23 +1226,23 @@ function randomTree(){
 		"twigMaterial":"BranchType6"}
 		
 	);
-	
-	myTree.seed=seed;
-	myTree.initalBranchLength=initalBranchLength;
-	myTree.lengthFalloffFactor=lengthFalloffFactor;
-	myTree.lengthFalloffPower=lengthFalloffPower;
-	myTree.clumpMax=clumpMax;
-	myTree.clumpMin=clumpMin;
-	myTree.branchFactor=branchFactor;
-	myTree.dropAmount=dropAmount;
-	myTree.growAmount=growAmount;
-	myTree.sweepAmount=sweepAmount;
-	myTree.climbRate=climbRate;
-	myTree.trunkKink=trunkKink;
-	myTree.taperRate=taperRate;
-	myTree.radiusFalloffRate=radiusFalloffRate;
-	myTree.twistRate=twistRate;
-	myTree.trunkLength=trunkLength;
+	myTree.gene=new Object();
+	myTree.gene.seed=seed;
+	myTree.gene.initalBranchLength=initalBranchLength;
+	myTree.gene.lengthFalloffFactor=lengthFalloffFactor;
+	myTree.gene.lengthFalloffPower=lengthFalloffPower;
+	myTree.gene.clumpMax=clumpMax;
+	myTree.gene.clumpMin=clumpMin;
+	myTree.gene.branchFactor=branchFactor;
+	myTree.gene.dropAmount=dropAmount;
+	myTree.gene.growAmount=growAmount;
+	myTree.gene.sweepAmount=sweepAmount;
+	myTree.gene.climbRate=climbRate;
+	myTree.gene.trunkKink=trunkKink;
+	myTree.gene.taperRate=taperRate;
+	myTree.gene.radiusFalloffRate=radiusFalloffRate;
+	myTree.gene.twistRate=twistRate;
+	myTree.gene.trunkLength=trunkLength;
 	//console.log("verts: "+myTree.verts.length+", polygons: "+myTree.faces.length+", twigPolygons: "+myTree.facesTwig.length);
 	
 	return myTree;

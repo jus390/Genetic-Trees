@@ -254,23 +254,23 @@ function randomTree(){
 		"twigMaterial":"BranchType6"}
 		
 	);
-	
-	myTree.seed=seed;
-	myTree.initalBranchLength=initalBranchLength;
-	myTree.lengthFalloffFactor=lengthFalloffFactor;
-	myTree.lengthFalloffPower=lengthFalloffPower;
-	myTree.clumpMax=clumpMax;
-	myTree.clumpMin=clumpMin;
-	myTree.branchFactor=branchFactor;
-	myTree.dropAmount=dropAmount;
-	myTree.growAmount=growAmount;
-	myTree.sweepAmount=sweepAmount;
-	myTree.climbRate=climbRate;
-	myTree.trunkKink=trunkKink;
-	myTree.taperRate=taperRate;
-	myTree.radiusFalloffRate=radiusFalloffRate;
-	myTree.twistRate=twistRate;
-	myTree.trunkLength=trunkLength;
+	myTree.gene=new Object();
+	myTree.gene.seed=seed;
+	myTree.gene.initalBranchLength=initalBranchLength;
+	myTree.gene.lengthFalloffFactor=lengthFalloffFactor;
+	myTree.gene.lengthFalloffPower=lengthFalloffPower;
+	myTree.gene.clumpMax=clumpMax;
+	myTree.gene.clumpMin=clumpMin;
+	myTree.gene.branchFactor=branchFactor;
+	myTree.gene.dropAmount=dropAmount;
+	myTree.gene.growAmount=growAmount;
+	myTree.gene.sweepAmount=sweepAmount;
+	myTree.gene.climbRate=climbRate;
+	myTree.gene.trunkKink=trunkKink;
+	myTree.gene.taperRate=taperRate;
+	myTree.gene.radiusFalloffRate=radiusFalloffRate;
+	myTree.gene.twistRate=twistRate;
+	myTree.gene.trunkLength=trunkLength;
 	//console.log("verts: "+myTree.verts.length+", polygons: "+myTree.faces.length+", twigPolygons: "+myTree.facesTwig.length);
 	
 	return myTree;
