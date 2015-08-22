@@ -24,7 +24,8 @@ function serviceMessage(evt){
 		if(working){
 			console.log("Worker is busy");
 		}else{
-			var a=GAOptimize(args[0],args[1],args[2],args[3],args[4],args[5],args[6],args[7],args[8]);
+			var loc=args[9];
+			var a=GAOptimize(loc,args[0],args[1],args[2],args[3],args[4],args[5],args[6],args[7],args[8]);
 			//console.log(args);
 			postMessage(a);
 		}
@@ -33,7 +34,6 @@ function serviceMessage(evt){
 		light.position.set(args[0],args[1],args[2]);
 		//console.log("Position set: "+light.position.x+", "+light.position.y+", "+light.position.z);
 	}
-	// Pass our message back to the creator's thread 
 	
 }
 
@@ -107,15 +107,18 @@ function trunkNormals(myTree){
 }
 
 
-function treeLightFitness(myTree){
+
+function treeLightFitness(myTree,treeLoc,useFacing,useTrunk){
 	var fit=0;
 	var p0=[light.position.x,light.position.y,light.position.z]
-	var centers=leafCenters(myTree);
+	var centers=leafCenters(myTree,treeLoc);
 	var normals=leafNormals(myTree);
+	if(useTrunk){
+		var tcenters=trunkCenters(myTree,treeLoc);
+		var tnormals=trunkNormals(myTree);
+	}
 	var fits=new Array(normals.length);
-	
-	var geo=new THREE.Geometry();
-	
+
 	for(i=0; i<normals.length; i++){
 		fits[i]=1;
 		var p=centers[i];
@@ -127,85 +130,7 @@ function treeLightFitness(myTree){
 		var P=addVec(p0,scaleVec(v,t0));
 		//console.log(p);
 		//console.log(P);
-		//console.log(t0);
-		for(j=0;j<normals.length;j++){
-			if(j==i){
-				continue;
-			}
-			
-			var dist=distance(centers[i],centers[j]);
-			
-			if(dist<0.001){
-				continue;
-			}
-			
-			p=centers[j];//plane poly2
-			n=normals[j];
-			d=-1*dot(p,n);
-			
-			var t=-1*(dot(p0,n)+d)/dot(v,n);
-			P=addVec(p0,scaleVec(v,t));
-			
-			//console.log(Math.round(dot(P,n)+d));//dela pravilno
-			if(t<t0){
-				var dif=Math.abs(t-t0);
-				if(dif>0.001){
-					
-					var A=myTree.vertsTwig[myTree.facesTwig[j][0]];
-					var B=myTree.vertsTwig[myTree.facesTwig[j][1]];
-					var C=myTree.vertsTwig[myTree.facesTwig[j][2]];
-					//inTriangle3(A,B,C,P);
-					//console.log(A);
-					if(nearTriangle(A,p,P)){
-						if(inTriangle3(A,B,C,P)){//inTriangle2(A,B,C,P)
-							fits[i]=0;
-							/*geo.vertices.push(new THREE.Vector3( A[0],  A[1], A[2]));
-							geo.vertices.push(new THREE.Vector3( B[0],  B[1], B[2]));
-							geo.vertices.push(new THREE.Vector3( C[0],  C[1], C[2]));*/
-							//geo.vertices.push(new THREE.Vector3( P[0],  P[1], P[2]));
-							//console.log(p+", "+P);
-							break;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	for(i=0;i<fits.length;i++){
-		fit=fit+fits[i];
-	}
-	//return geo;
-	return fit;
-}
-
-function treeLightFacingFitness(myTree){
-
-	var fit=0;
-	var p0=[light.position.x,light.position.y,light.position.z]
-	var centers=leafCenters(myTree);
-	var normals=leafNormals(myTree);
-	/*if(isNaN(normals[0])){
-		console.log(normals[0]);
-	}*/
-	//console.log(normals.length);
-	var fits=new Array(normals.length);
-	
-	//var geo=new THREE.Geometry();
-	
-	for(i=0; i<normals.length; i++){
-		fits[i]=1;
-		var p=centers[i];
-		var n=normals[i];
-		//console.log(p);
 		
-		var d=-1*dot(p,n);
-		var v=normalize(subVec(p,p0));
-		var t0=-1*(dot(p0,n)+d)/dot(v,n);//dela pravilno
-		var P=addVec(p0,scaleVec(v,t0));
-		//console.log(p);
-		//console.log(P);
-		//console.log(t0);
 		for(j=0;j<normals.length;j++){
 			if(j==i){
 				continue;
@@ -220,216 +145,9 @@ function treeLightFacingFitness(myTree){
 			p=centers[j];//plane poly2
 			n=normals[j];
 			
-			fits[i]=Math.abs(dot(v,n));
-			
-			d=-1*dot(p,n);
-			
-			var t=-1*(dot(p0,n)+d)/dot(v,n);
-			P=addVec(p0,scaleVec(v,t));
-			
-			//console.log(Math.round(dot(P,n)+d));//dela pravilno
-			if(t<t0){
-				var dif=Math.abs(t-t0);
-				if(dif>0.001){
-					
-					var A=myTree.vertsTwig[myTree.facesTwig[j][0]];
-					var B=myTree.vertsTwig[myTree.facesTwig[j][1]];
-					var C=myTree.vertsTwig[myTree.facesTwig[j][2]];
-					//inTriangle3(A,B,C,P);
-					//console.log(A);
-					if(nearTriangle(A,p,P)){
-						if(inTriangle3(A,B,C,P)){//inTriangle2(A,B,C,P)
-							fits[i]=0;
-							/*geo.vertices.push(new THREE.Vector3( A[0],  A[1], A[2]));
-							geo.vertices.push(new THREE.Vector3( B[0],  B[1], B[2]));
-							geo.vertices.push(new THREE.Vector3( C[0],  C[1], C[2]));
-							geo.vertices.push(new THREE.Vector3( P[0],  P[1], P[2]));*/
-							//console.log(p+", "+P);
-							break;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	for(i=0;i<fits.length;i++){
-		fit=fit+fits[i];
-		/*if(isNaN(fits[i])){
-			console.log(myTree);
-		}*/
-	}
-	//return geo;
-	return fit;
-}
-
-function treeTrunkLightFacingFitness(myTree){
-
-	var fit=0;
-	var p0=[light.position.x,light.position.y,light.position.z]
-	var centers=leafCenters(myTree);
-	var normals=leafNormals(myTree);
-	var tcenters=trunkCenters(myTree);
-	var tnormals=trunkNormals(myTree);
-	/*if(isNaN(normals[0])){
-		console.log(normals[0]);
-	}*/
-	//console.log(normals.length);
-	var fits=new Array(normals.length);
-	
-	//var geo=new THREE.Geometry();
-	
-	for(i=0; i<normals.length; i++){
-		fits[i]=1;
-		var p=centers[i];
-		var n=normals[i];
-		//console.log(p);
-		
-		var d=-1*dot(p,n);
-		var v=normalize(subVec(p,p0));
-		var t0=-1*(dot(p0,n)+d)/dot(v,n);//dela pravilno
-		var P=addVec(p0,scaleVec(v,t0));
-		//console.log(p);
-		//console.log(P);
-		//console.log(t0);
-		for(j=0;j<normals.length;j++){
-			if(j==i){
-				continue;
-			}
-			
-			var dist=distance(centers[i],centers[j]);
-			
-			if(dist<0.001){
-				continue;
-			}
-			
-			p=centers[j];//plane poly2
-			n=normals[j];
-			
-			fits[i]=Math.abs(dot(v,n));
-			
-			d=-1*dot(p,n);
-			
-			var t=-1*(dot(p0,n)+d)/dot(v,n);
-			P=addVec(p0,scaleVec(v,t));
-			
-			//console.log(Math.round(dot(P,n)+d));//dela pravilno
-			if(t<t0){
-				var dif=Math.abs(t-t0);
-				if(dif>0.001){
-					
-					var A=myTree.vertsTwig[myTree.facesTwig[j][0]];
-					var B=myTree.vertsTwig[myTree.facesTwig[j][1]];
-					var C=myTree.vertsTwig[myTree.facesTwig[j][2]];
-					//inTriangle3(A,B,C,P);
-					//console.log(A);
-					if(nearTriangle(A,p,P)){
-						if(inTriangle3(A,B,C,P)){//inTriangle2(A,B,C,P)
-							fits[i]=0;
-							/*geo.vertices.push(new THREE.Vector3( A[0],  A[1], A[2]));
-							geo.vertices.push(new THREE.Vector3( B[0],  B[1], B[2]));
-							geo.vertices.push(new THREE.Vector3( C[0],  C[1], C[2]));
-							geo.vertices.push(new THREE.Vector3( P[0],  P[1], P[2]));*/
-							//console.log(p+", "+P);
-							break;
-						}
-					}
-				}
-			}
-		}
-		if(fits[i]!=0){
-			for(j=0;j<tnormals.length;j++){
-				p=tcenters[j];//plane poly2
-				n=tnormals[j];
-				
+			if(useFacing){
 				fits[i]=Math.abs(dot(v,n));
-				
-				d=-1*dot(p,n);
-				
-				var t=-1*(dot(p0,n)+d)/dot(v,n);
-				P=addVec(p0,scaleVec(v,t));
-				
-				//console.log(Math.round(dot(P,n)+d));//dela pravilno
-				if(t<t0){
-					var dif=Math.abs(t-t0);
-					if(dif>0.001){
-						
-						var A=myTree.verts[myTree.faces[j][0]];
-						var B=myTree.verts[myTree.faces[j][1]];
-						var C=myTree.verts[myTree.faces[j][2]];
-						//inTriangle3(A,B,C,P);
-						//console.log(A);
-						if(nearTriangle(A,p,P)){
-							if(inTriangle3(A,B,C,P)){//inTriangle2(A,B,C,P)
-								fits[i]=0;
-								/*geo.vertices.push(new THREE.Vector3( A[0],  A[1], A[2]));
-								geo.vertices.push(new THREE.Vector3( B[0],  B[1], B[2]));
-								geo.vertices.push(new THREE.Vector3( C[0],  C[1], C[2]));
-								geo.vertices.push(new THREE.Vector3( P[0],  P[1], P[2]));*/
-								//console.log(p+", "+P);
-								break;
-							}
-						}
-					}
-				}
 			}
-		}
-	}
-
-	for(i=0;i<fits.length;i++){
-		fit=fit+fits[i];
-		/*if(isNaN(fits[i])){
-			console.log(myTree);
-		}*/
-	}
-	//return geo;
-	return fit;
-}
-
-function treeTrunkLightFitness(myTree){
-
-	var fit=0;
-	var p0=[light.position.x,light.position.y,light.position.z]
-	var centers=leafCenters(myTree);
-	var normals=leafNormals(myTree);
-	var tcenters=trunkCenters(myTree);
-	var tnormals=trunkNormals(myTree);
-	/*if(isNaN(normals[0])){
-		console.log(normals[0]);
-	}*/
-	//console.log(normals.length);
-	var fits=new Array(normals.length);
-	
-	//var geo=new THREE.Geometry();
-	
-	for(i=0; i<normals.length; i++){
-		fits[i]=1;
-		var p=centers[i];
-		var n=normals[i];
-		//console.log(p);
-		
-		var d=-1*dot(p,n);
-		var v=normalize(subVec(p,p0));
-		var t0=-1*(dot(p0,n)+d)/dot(v,n);//dela pravilno
-		var P=addVec(p0,scaleVec(v,t0));
-		//console.log(p);
-		//console.log(P);
-		//console.log(t0);
-		for(j=0;j<normals.length;j++){
-			if(j==i){
-				continue;
-			}
-			
-			var dist=distance(centers[i],centers[j]);
-			
-			if(dist<0.001){
-				continue;
-			}
-			
-			p=centers[j];//plane poly2
-			n=normals[j];
-			
-			//fits[i]=Math.abs(dot(v,n));
 			
 			d=-1*dot(p,n);
 			
@@ -440,57 +158,64 @@ function treeTrunkLightFitness(myTree){
 			if(t<t0){
 				var dif=Math.abs(t-t0);
 				if(dif>0.001){
+
 					
 					var A=myTree.vertsTwig[myTree.facesTwig[j][0]];
+					A=addVec(A,treeLoc);
 					var B=myTree.vertsTwig[myTree.facesTwig[j][1]];
+					B=addVec(B,treeLoc);
 					var C=myTree.vertsTwig[myTree.facesTwig[j][2]];
-					//inTriangle3(A,B,C,P);
-					//console.log(A);
+					C=addVec(C,treeLoc);
 					if(nearTriangle(A,p,P)){
+						//console.log("c");
 						if(inTriangle3(A,B,C,P)){//inTriangle2(A,B,C,P)
+							//console.log("d");
 							fits[i]=0;
-							/*geo.vertices.push(new THREE.Vector3( A[0],  A[1], A[2]));
-							geo.vertices.push(new THREE.Vector3( B[0],  B[1], B[2]));
-							geo.vertices.push(new THREE.Vector3( C[0],  C[1], C[2]));
-							geo.vertices.push(new THREE.Vector3( P[0],  P[1], P[2]));*/
-							//console.log(p+", "+P);
 							break;
 						}
 					}
 				}
 			}
 		}
-		if(fits[i]!=0){
-			for(j=0;j<tnormals.length;j++){
-				p=tcenters[j];//plane poly2
-				n=tnormals[j];
-				
-				//fits[i]=Math.abs(dot(v,n));
-				
-				d=-1*dot(p,n);
-				
-				var t=-1*(dot(p0,n)+d)/dot(v,n);
-				P=addVec(p0,scaleVec(v,t));
-				
-				//console.log(Math.round(dot(P,n)+d));//dela pravilno
-				if(t<t0){
-					var dif=Math.abs(t-t0);
-					if(dif>0.001){
-						
-						var A=myTree.verts[myTree.faces[j][0]];
-						var B=myTree.verts[myTree.faces[j][1]];
-						var C=myTree.verts[myTree.faces[j][2]];
-						//inTriangle3(A,B,C,P);
-						//console.log(A);
-						if(nearTriangle(A,p,P)){
-							if(inTriangle3(A,B,C,P)){//inTriangle2(A,B,C,P)
-								fits[i]=0;
-								/*geo.vertices.push(new THREE.Vector3( A[0],  A[1], A[2]));
-								geo.vertices.push(new THREE.Vector3( B[0],  B[1], B[2]));
-								geo.vertices.push(new THREE.Vector3( C[0],  C[1], C[2]));
-								geo.vertices.push(new THREE.Vector3( P[0],  P[1], P[2]));*/
-								//console.log(p+", "+P);
-								break;
+		if(useTrunk){
+			if(fits[i]!=0){
+				for(j=0;j<tnormals.length;j++){
+					p=tcenters[j];//plane poly2
+					n=tnormals[j];
+					
+					if(useFacing){
+						fits[i]=Math.abs(dot(v,n));
+					}
+					
+					
+					d=-1*dot(p,n);
+					
+					var t=-1*(dot(p0,n)+d)/dot(v,n);
+					P=addVec(p0,scaleVec(v,t));
+					
+					//console.log(Math.round(dot(P,n)+d));//dela pravilno
+					if(t<t0){
+						var dif=Math.abs(t-t0);
+						if(dif>0.001){
+							
+							var A=myTree.verts[myTree.faces[j][0]];
+							A=addVec(A,treeLoc);
+							var B=myTree.verts[myTree.faces[j][1]];
+							B=addVec(B,treeLoc);
+							var C=myTree.verts[myTree.faces[j][2]];
+							C=addVec(C,treeLoc);
+							//inTriangle3(A,B,C,P);
+							//console.log(A);
+							if(nearTriangle(A,p,P)){
+								if(inTriangle3(A,B,C,P)){//inTriangle2(A,B,C,P)
+									fits[i]=0;
+									/*geo.vertices.push(new THREE.Vector3( A[0],  A[1], A[2]));
+									geo.vertices.push(new THREE.Vector3( B[0],  B[1], B[2]));
+									geo.vertices.push(new THREE.Vector3( C[0],  C[1], C[2]));
+									geo.vertices.push(new THREE.Vector3( P[0],  P[1], P[2]));*/
+									//console.log(p+", "+P);
+									break;
+								}
 							}
 						}
 					}
@@ -575,36 +300,37 @@ function nearTriangle(A,center,P){
 	return true;
 }
 
-function leafCenters(myTree){
+function leafCenters(myTree,treeLoc){
 	var centers=new Array(myTree.facesTwig.length);
 	for(i=0;i<myTree.facesTwig.length;i++){
 		
-		centers[i]=[(myTree.vertsTwig[ myTree.facesTwig[i][0] ][0]+myTree.vertsTwig[ myTree.facesTwig[i][1] ][0]+myTree.vertsTwig[ myTree.facesTwig[i][2] ][0])/3,
-						 (myTree.vertsTwig[ myTree.facesTwig[i][0] ][1]+myTree.vertsTwig[ myTree.facesTwig[i][1] ][1]+myTree.vertsTwig[ myTree.facesTwig[i][2] ][1])/3,
-						 (myTree.vertsTwig[ myTree.facesTwig[i][0] ][2]+myTree.vertsTwig[ myTree.facesTwig[i][1] ][2]+myTree.vertsTwig[ myTree.facesTwig[i][2] ][2])/3];
-		/*if(isNaN(centers[i])){
-			console.log(centers[i]);
-		}*/
+		centers[i]=[((myTree.vertsTwig[ myTree.facesTwig[i][0] ][0]+myTree.vertsTwig[ myTree.facesTwig[i][1] ][0]+myTree.vertsTwig[ myTree.facesTwig[i][2] ][0])/3),
+						 ((myTree.vertsTwig[ myTree.facesTwig[i][0] ][1]+myTree.vertsTwig[ myTree.facesTwig[i][1] ][1]+myTree.vertsTwig[ myTree.facesTwig[i][2] ][1])/3),
+						 ((myTree.vertsTwig[ myTree.facesTwig[i][0] ][2]+myTree.vertsTwig[ myTree.facesTwig[i][1] ][2]+myTree.vertsTwig[ myTree.facesTwig[i][2] ][2])/3)];
+		//console.log(centers[i]);
+		centers[i]=addVec(centers[i],treeLoc);
+		//console.log(centers[i]);
 	}
 	return centers;
 }
 
-function trunkCenters(myTree){
+function trunkCenters(myTree,treeLoc){
 	var centers=new Array(myTree.faces.length);
 	for(i=0;i<myTree.faces.length;i++){
 		
-		centers[i]=[(myTree.verts[ myTree.faces[i][0] ][0]+myTree.verts[ myTree.faces[i][1] ][0]+myTree.verts[ myTree.faces[i][2] ][0])/3,
-						 (myTree.verts[ myTree.faces[i][0] ][1]+myTree.verts[ myTree.faces[i][1] ][1]+myTree.verts[ myTree.faces[i][2] ][1])/3,
-						 (myTree.verts[ myTree.faces[i][0] ][2]+myTree.verts[ myTree.faces[i][1] ][2]+myTree.verts[ myTree.faces[i][2] ][2])/3];
-		/*if(isNaN(centers[i])){
-			console.log(centers[i]);
-		}*/
+		centers[i]=[((myTree.verts[ myTree.faces[i][0] ][0]+myTree.verts[ myTree.faces[i][1] ][0]+myTree.verts[ myTree.faces[i][2] ][0])/3),
+						 ((myTree.verts[ myTree.faces[i][0] ][1]+myTree.verts[ myTree.faces[i][1] ][1]+myTree.verts[ myTree.faces[i][2] ][1])/3),
+						 ((myTree.verts[ myTree.faces[i][0] ][2]+myTree.verts[ myTree.faces[i][1] ][2]+myTree.verts[ myTree.faces[i][2] ][2])/3)];
+		centers[i]=addVec(centers[i],treeLoc);
+		
+		
 	}
 	return centers;
 }
 
-function GAOptimize(maxIter,numOfInstances,numOfChild,sameBestIter,useBest,minFitnessTerm, mutationRate, useFacing, useTrunk){
+function GAOptimize(treeLoc,maxIter,numOfInstances,numOfChild,sameBestIter,useBest,minFitnessTerm, mutationRate, useFacing, useTrunk){
 	working=true;
+	console.log(treeLoc);
 
 	if (typeof(minFitnessTerm)==='undefined'){
 		minFitnessTerm=0;
@@ -647,21 +373,7 @@ function GAOptimize(maxIter,numOfInstances,numOfChild,sameBestIter,useBest,minFi
 		//console.log(trees);
 		
 		for(i=0;i<trees.length;i++){
-			var fit=0;
-			if(useFacing){
-				if(useTrunk){
-					fit=treeTrunkLightFacingFitness(trees[i]);
-				}else{
-					fit=treeLightFacingFitness(trees[i]);
-				}
-			}else{
-				if(useTrunk){
-					fit=treeTrunkLightFitness(trees[i]);
-				}else{
-					fit=treeLightFitness(trees[i]);
-				}
-			}
-			//var fit=treeTrunkLightFitness(trees[i])//treeTrunkLightFacingFitness(trees[i]);
+			var fit=treeLightFitness(trees[i],treeLoc,useFacing,useTrunk);
 			if(isNaN(fit)){
 				console.log(fit);
 				fit=0;

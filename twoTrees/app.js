@@ -10,8 +10,18 @@ var plane;
 
 var myTree;
 var centers;
-var tree;
-var twig;
+
+var tree1;
+var twig1;
+var TreeLocX1=-2;
+var TreeLocY1=0;
+var TreeLocZ1=0;
+
+var tree2;
+var twig2;
+var TreeLocX2=2;
+var TreeLocY2=0;
+var TreeLocZ2=0;
 
 
 var light;
@@ -37,16 +47,67 @@ var trunkCollision=false;
 var facing=false;
 
 function workerMessage(evt){
-	scene.remove(tree);
-	scene.remove(twig);
-	tree = treeGeometry(evt.data);
-	twig = twigGeometry(evt.data);
-	scene.add(tree);
-	scene.add(twig);
+	var msg=evt.data[0];
+	var data=evt.data[1];
+	var lpos=[light.position.x,light.position.y,light.position.z];
+	var pos1=[TreeLocX1, TreeLocY1, TreeLocZ1];
+	var pos2=[TreeLocX2, TreeLocY2, TreeLocZ2];
+	var dist1=distance(lpos,pos1);
+	var dist2=distance(lpos,pos2);
+	if(dist1<dist2){
+		if(msg==0){
+			scene.remove(tree1);
+			scene.remove(twig1);
+			tree1 = treeGeometry(data);
+			twig1 = twigGeometry(data);
+			tree1.position.set(TreeLocX1, TreeLocY1, TreeLocZ1);
+			twig1.position.set(TreeLocX1, TreeLocY1, TreeLocZ1);
+			scene.add(tree1);
+			scene.add(twig1);
+		}else if(msg==1){
+			scene.remove(tree2);
+			scene.remove(twig2);
+			tree2 = treeGeometry(data);
+			twig2 = twigGeometry(data);
+			tree2.position.set(TreeLocX2, TreeLocY2, TreeLocZ2);
+			twig2.position.set(TreeLocX2, TreeLocY2, TreeLocZ2);
+			scene.add(tree2);
+			scene.add(twig2);
+		}
+	}else{
+		if(msg==1){
+			scene.remove(tree1);
+			scene.remove(twig1);
+			tree1 = treeGeometry(data);
+			twig1 = twigGeometry(data);
+			tree1.position.set(TreeLocX1, TreeLocY1, TreeLocZ1);
+			twig1.position.set(TreeLocX1, TreeLocY1, TreeLocZ1);
+			scene.add(tree1);
+			scene.add(twig1);
+		}else if(msg==0){
+			scene.remove(tree2);
+			scene.remove(twig2);
+			tree2 = treeGeometry(data);
+			twig2 = twigGeometry(data);
+			tree2.position.set(TreeLocX2, TreeLocY2, TreeLocZ2);
+			twig2.position.set(TreeLocX2, TreeLocY2, TreeLocZ2);
+			scene.add(tree2);
+			scene.add(twig2);
+		}
+	}
 }
 
 this.Start=function(){
-	var gaSettings=[maxGenerations,numOfInstances,numOfChild,sameBestIter,useBest,minFitnessTerm,mutationRate,facing,trunkCollision];
+	var lpos=[light.position.x,light.position.y,light.position.z];
+	var pos1=[TreeLocX1, TreeLocY1, TreeLocZ1];
+	var pos2=[TreeLocX2, TreeLocY2, TreeLocZ2];
+	var dist1=distance(lpos,pos1);
+	var dist2=distance(lpos,pos2);
+	if(dist1<dist2){
+		var gaSettings=[maxGenerations,numOfInstances,numOfChild,sameBestIter,useBest,minFitnessTerm,mutationRate,facing,trunkCollision,pos1,pos2];
+	}else{
+		var gaSettings=[maxGenerations,numOfInstances,numOfChild,sameBestIter,useBest,minFitnessTerm,mutationRate,facing,trunkCollision,pos2,pos1];
+	}
 		//console.log("worker");
 	worker.postMessage([1,gaSettings]);
 }
@@ -56,6 +117,18 @@ function updateLight(){
 	var pos=[light.position.x,light.position.y,light.position.z];
 	lightDot.position.set(light.position.x, light.position.y, light.position.z);
 	worker.postMessage([0,pos]);
+}
+
+function updateTreeLoc1(){
+	tree1.position.set(TreeLocX1, TreeLocY1, TreeLocZ1);
+	twig1.position.set(TreeLocX1, TreeLocY1, TreeLocZ1);
+	//worker.postMessage([2,pos]);
+}
+
+function updateTreeLoc2(){
+	tree2.position.set(TreeLocX2, TreeLocY2, TreeLocZ2);
+	twig2.position.set(TreeLocX2, TreeLocY2, TreeLocZ2);
+	//worker.postMessage([2,pos]);
 }
 
 function init(){
@@ -134,26 +207,42 @@ function init(){
 	scene.add(sky);
 	
 	myTree=randomTree();
+	tree1 = treeGeometry(myTree);
+	scene.add( tree1 );
+	twig1 = twigGeometry(myTree);	
+	scene.add(twig1);
+	updateTreeLoc1();
 	
-	tree = treeGeometry(myTree);
-	scene.add( tree );
-	twig = twigGeometry(myTree);
-	/*
-	centers=leafCenters(myTree);
-	normals=leafNormals(myTree);
-	var geo=new THREE.Geometry(); //leafCenters,normal debug
-	for(i=0;i<centers.length;i++){//centers.length
-			geo.vertices.push(new THREE.Vector3( centers[i][0],  centers[i][1], centers[i][2] ));
-			geo.vertices.push(new THREE.Vector3( centers[i][0]+normals[i][0]/3,  centers[i][1]+normals[i][1]/3, centers[i][2]+normals[i][2]/3 ));
-	}
-	*/
-	/*var geo=treeLightFitness(myTree);
-	pcMat = new THREE.PointCloudMaterial( { size: 5, sizeAttenuation: false, alphaTest: 0.5, transparent: true } );
-	twigNormals=new THREE.PointCloud(geo,pcMat);
-	scene.add(twigNormals);*/
+	myTree=randomTree();
+	tree2 = treeGeometry(myTree);
+	scene.add( tree2 );
+	twig2 = twigGeometry(myTree);	
+	scene.add(twig2);
+	updateTreeLoc2();
 	
-	scene.add(twig);
 	gui = new dat.GUI();
+	var f0 = gui.addFolder("Tree1 position");
+	
+	var contTreeX=f0.add(self, 'TreeLocX1').step(0.25);	
+	contTreeX.onChange(updateTreeLoc1);
+	
+	var contTreeY=f0.add(self, 'TreeLocY1').step(0.25);	
+	contTreeY.onChange(updateTreeLoc1);
+	
+	var contTreeZ=f0.add(self, 'TreeLocZ1').step(0.25);	
+	contTreeZ.onChange(updateTreeLoc1);
+	
+	var f4 = gui.addFolder("Tree2 position");
+	
+	var contTree2X=f4.add(self, 'TreeLocX2').step(0.25);	
+	contTree2X.onChange(updateTreeLoc2);
+	
+	var contTree2Y=f4.add(self, 'TreeLocY2').step(0.25);	
+	contTree2Y.onChange(updateTreeLoc2);
+	
+	var contTree2Z=f4.add(self, 'TreeLocZ2').step(0.25);	
+	contTree2Z.onChange(updateTreeLoc2);
+	
 	var f1 = gui.addFolder("Sun position");
 	//var cont=f1.add(self, 'preset', [ 'Top', 'Side1', 'Side2' ] );
 	
@@ -190,12 +279,23 @@ var render = function () {
 	if(keyboard.pressed("r") == true)	{
 		myTree=randomTree();	
 		
-		scene.remove(tree);
-		scene.remove(twig);
-		tree = treeGeometry(myTree);
-		twig = twigGeometry(myTree);
-		scene.add(tree);
-		scene.add(twig);
+		scene.remove(tree1);
+		scene.remove(twig1);
+		tree1 = treeGeometry(myTree);
+		twig1 = twigGeometry(myTree);
+		updateTreeLoc1();
+		scene.add(tree1);
+		scene.add(twig1);
+		
+		myTree=randomTree();	
+		
+		scene.remove(tree2);
+		scene.remove(twig2);
+		tree2 = treeGeometry(myTree);
+		twig2 = twigGeometry(myTree);
+		updateTreeLoc2();
+		scene.add(tree2);
+		scene.add(twig2);
 		
 	}
 	
@@ -220,7 +320,8 @@ function randomTree(){
 	var branchFactor=2.0+Math.random()*2.0;
 	var dropAmount=-0.3+Math.random()*0.6;
 	var growAmount=-0.5+Math.random()*1.5;
-	var sweepAmount=-0.05+Math.random()*0.1;
+	var sweepAmount=-0.15+Math.random()*0.3;
+	var sweepAmount2=-0.15+Math.random()*0.3;
 	var climbRate=0.05+Math.random()*0.95;
 	var trunkKink=Math.random()*0.3;
 	var taperRate=0.7+Math.random()*0.3;
@@ -232,7 +333,7 @@ function randomTree(){
 		"segments":6,
 		"levels":5,
 		"vMultiplier":1.16,
-		"twigScale":0.2,
+		"twigScale":0.22,
 		"initalBranchLength":initalBranchLength,
 		"lengthFalloffFactor":lengthFalloffFactor,
 		"lengthFalloffPower":lengthFalloffPower,
@@ -242,6 +343,7 @@ function randomTree(){
 		"dropAmount":dropAmount,
 		"growAmount":growAmount,
 		"sweepAmount":sweepAmount,
+		"sweepAmount2":sweepAmount2,
 		"maxRadius":0.111,
 		"climbRate":climbRate,
 		"trunkKink":trunkKink,
@@ -265,6 +367,7 @@ function randomTree(){
 	myTree.gene.dropAmount=dropAmount;
 	myTree.gene.growAmount=growAmount;
 	myTree.gene.sweepAmount=sweepAmount;
+	myTree.gene.sweepAmount2=sweepAmount2;
 	myTree.gene.climbRate=climbRate;
 	myTree.gene.trunkKink=trunkKink;
 	myTree.gene.taperRate=taperRate;
@@ -322,7 +425,9 @@ function twigGeometry(myTree){
 	twig.receiveShadow = true;
 	return twig;
 }
-	
+var distance=function(v1,v2){
+	return Math.sqrt(Math.pow((v1[0]-v2[0]),2)+Math.pow((v1[1]-v2[1]),2)+Math.pow((v1[2]-v2[2]),2));
+};
 var keyboard = new THREEx.KeyboardState();
 
 

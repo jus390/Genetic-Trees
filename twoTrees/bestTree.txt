@@ -1,0 +1,45 @@
+branchFactor: 3.786218498367816
+climbRate: 0.6589413778856397
+clumpMax: 0.47595385564491155
+clumpMin: 0.2502564644441009
+dropAmount: 0.20442758139688522
+faces: Array[3444]
+facesTwig: Array[768]
+fitness: 664.1748901191924
+growAmount: -0.38486713427118957
+initalBranchLength: 0.7863278785487637
+lengthFalloffFactor: 0.7619353750254958
+lengthFalloffPower: 0.3289843514561653
+normals: Array[1726]
+normalsTwig: Array[1536]
+radiusFalloffRate: 0.7747451772773638
+root: Branch
+seed: 3595
+sweepAmount: -0.030972596001811327
+taperRate: 0.9560135741252451
+trunkKink: 0.17182709381449968
+trunkLength: 2.8625748213380575
+twistRate: 5.317431353032589
+
+light.position.set( 0, 500, 0 );
+
+branchFactor: 3.7957542771473527
+climbRate: 0.6914462438900956
+clumpMax: 0.4867855992401019
+clumpMin: 0.26828353984747083
+dropAmount: 0.2551503627095371
+fitness: 649.6565906748162
+growAmount: -0.4275800723116845
+initalBranchLength: 0.7144936045631767
+lengthFalloffFactor: 0.7864410463254898
+lengthFalloffPower: 0.32852782420814036
+normals: Array[1726]
+normalsTwig: Array[1536]
+radiusFalloffRate: 0.7624547185818664
+root: Branch
+seed: 1067
+sweepAmount: 0.016245770570822063
+taperRate: 0.9352131125051528
+trunkKink: 0.16678624127525835
+trunkLength: 3.0336683850735424
+twistRate: 5.669190087355673
