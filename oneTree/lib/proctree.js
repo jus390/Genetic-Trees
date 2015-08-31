@@ -66,6 +66,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		segments:6,
 		levels:3,
 		sweepAmount:0,
+		sweepAmount2:0,
 		initalBranchLength:0.85,
 		trunkLength:2.5,
 		dropAmount: 0.0,
@@ -441,8 +442,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		var growAmount=level*level/(properties.levels*properties.levels)*properties.growAmount;
 		var dropAmount=rLevel*properties.dropAmount
 		var sweepAmount=rLevel*properties.sweepAmount;
+		var sweepAmount2=rLevel*properties.sweepAmount2;
 		newdir=normalize(addVec(newdir,[sweepAmount,dropAmount+growAmount,0]));
-		newdir2=normalize(addVec(newdir2,[sweepAmount,dropAmount+growAmount,0]));
+		newdir2=normalize(addVec(newdir2,[sweepAmount,dropAmount+growAmount,sweepAmount2]));
 		
 		var head0=addVec(so,scaleVec(newdir,this.length));
 		var head1=addVec(so,scaleVec(newdir2,this.length));

@@ -541,6 +541,7 @@ function crossOver(tree1,tree2){//enaka drevesa?
 	//console.log(growAmount);
 	var sweepAmount=[tree1.gene.sweepAmount, tree2.gene.sweepAmount];
 	//console.log(sweepAmount);
+	var sweepAmount2=[tree1.gene.sweepAmount2, tree2.gene.sweepAmount2];
 	var climbRate=[tree1.gene.climbRate, tree2.gene.climbRate];
 	//console.log(climbRate);
 	var trunkKink=[tree1.gene.trunkKink, tree2.gene.trunkKink];
@@ -556,7 +557,7 @@ function crossOver(tree1,tree2){//enaka drevesa?
 	
 	
 	var crossSel=[];
-	for (i=0;i<16;i++){
+	for (i=0;i<17;i++){
 		var ran=Math.random();
 		if(ran>0.5){
 			crossSel[i]=1;
@@ -580,6 +581,7 @@ function crossOver(tree1,tree2){//enaka drevesa?
 		"dropAmount":dropAmount[crossSel[7]],
 		"growAmount":growAmount[crossSel[8]],
 		"sweepAmount":sweepAmount[crossSel[9]],
+		"sweepAmount2":sweepAmount2[crossSel[16]],
 		"maxRadius":0.111,
 		"climbRate":climbRate[crossSel[10]],
 		"trunkKink":trunkKink[crossSel[11]],
@@ -603,6 +605,7 @@ function crossOver(tree1,tree2){//enaka drevesa?
 	newTree1.gene.dropAmount=dropAmount[crossSel[7]];
 	newTree1.gene.growAmount=growAmount[crossSel[8]];
 	newTree1.gene.sweepAmount=sweepAmount[crossSel[9]];
+	newTree1.gene.sweepAmount2=sweepAmount2[crossSel[16]];
 	newTree1.gene.climbRate=climbRate[crossSel[10]];
 	newTree1.gene.trunkKink=trunkKink[crossSel[11]];
 	newTree1.gene.taperRate=taperRate[crossSel[12]];
@@ -625,6 +628,7 @@ function crossOver(tree1,tree2){//enaka drevesa?
 		"dropAmount":dropAmount[Math.abs(crossSel[7]-1)],
 		"growAmount":growAmount[Math.abs(crossSel[8]-1)],
 		"sweepAmount":sweepAmount[Math.abs(crossSel[9]-1)],
+		"sweepAmount2":sweepAmount2[Math.abs(crossSel[9]-1)],
 		"maxRadius":0.111,
 		"climbRate":climbRate[Math.abs(crossSel[10]-1)],
 		"trunkKink":trunkKink[Math.abs(crossSel[11]-1)],
@@ -648,6 +652,7 @@ function crossOver(tree1,tree2){//enaka drevesa?
 	newTree2.gene.dropAmount=dropAmount[Math.abs(crossSel[7]-1)];
 	newTree2.gene.growAmount=growAmount[Math.abs(crossSel[8]-1)];
 	newTree2.gene.sweepAmount=sweepAmount[Math.abs(crossSel[9]-1)];
+	newTree2.gene.sweepAmount2=sweepAmount2[Math.abs(crossSel[16]-1)];
 	newTree2.gene.climbRate=climbRate[Math.abs(crossSel[10]-1)];
 	newTree2.gene.trunkKink=trunkKink[Math.abs(crossSel[11]-1)];
 	newTree2.gene.taperRate=taperRate[Math.abs(crossSel[12]-1)];
@@ -683,6 +688,7 @@ function crossOver2(tree1,tree2){
 	//console.log(growAmount);
 	var sweepAmount=[tree1.gene.sweepAmount, tree2.gene.sweepAmount];
 	//console.log(sweepAmount);
+	var sweepAmount2=[tree1.gene.sweepAmount2, tree2.gene.sweepAmount2];
 	var climbRate=[tree1.gene.climbRate, tree2.gene.climbRate];
 	//console.log(climbRate);
 	var trunkKink=[tree1.gene.trunkKink, tree2.gene.trunkKink];
@@ -711,6 +717,7 @@ function crossOver2(tree1,tree2){
 		"dropAmount":(dropAmount[0]+dropAmount[1])/2,
 		"growAmount":(growAmount[0]+growAmount[1])/2,
 		"sweepAmount":(sweepAmount[0]+sweepAmount[1])/2,
+		"sweepAmount2":(sweepAmount2[0]+sweepAmount2[1])/2,
 		"maxRadius":0.111,
 		"climbRate":(climbRate[0]+climbRate[1])/2,
 		"trunkKink":(trunkKink[0]+trunkKink[1])/2,
@@ -734,6 +741,7 @@ function crossOver2(tree1,tree2){
 	newTree.gene.dropAmount=(dropAmount[0]+dropAmount[1])/2;
 	newTree.gene.growAmount=(growAmount[0]+growAmount[1])/2;
 	newTree.gene.sweepAmount=(sweepAmount[0]+sweepAmount[1])/2;
+	newTree.gene.sweepAmount2=(sweepAmount2[0]+sweepAmount2[1])/2;
 	newTree.gene.climbRate=(climbRate[0]+climbRate[1])/2;
 	newTree.gene.trunkKink=(trunkKink[0]+trunkKink[1])/2;
 	newTree.gene.taperRate=(taperRate[0]+taperRate[1])/2;
@@ -804,9 +812,15 @@ function mutateTree(myTree, mutationAmount){
 	}
 		
 	rFac=Math.random();
-	var sweepAmount=-0.05+Math.random()*0.1;
+	var sweepAmount=-0.3+Math.random()*0.15;
 	if(rFac>mutationAmount){
 		sweepAmount=myTree.gene.sweepAmount;
+	}
+	
+	rFac=Math.random();
+	var sweepAmount2=-0.3+Math.random()*0.15;
+	if(rFac>mutationAmount){
+		sweepAmount2=myTree.gene.sweepAmount2;
 	}
 		
 	rFac=Math.random();
@@ -860,6 +874,7 @@ function mutateTree(myTree, mutationAmount){
 		"dropAmount":dropAmount,
 		"growAmount":growAmount,
 		"sweepAmount":sweepAmount,
+		"sweepAmount2":sweepAmount2,
 		"maxRadius":0.111,
 		"climbRate":climbRate,
 		"trunkKink":trunkKink,
@@ -883,6 +898,7 @@ function mutateTree(myTree, mutationAmount){
 	mutatedTree.gene.dropAmount=dropAmount;
 	mutatedTree.gene.growAmount=growAmount;
 	mutatedTree.gene.sweepAmount=sweepAmount;
+	mutatedTree.gene.sweepAmount2=sweepAmount2;
 	mutatedTree.gene.climbRate=climbRate;
 	mutatedTree.gene.trunkKink=trunkKink;
 	mutatedTree.gene.taperRate=taperRate;
@@ -904,8 +920,9 @@ function randomTree(){
 	var branchFactor=2.0+Math.random()*2.0;
 	var dropAmount=-0.3+Math.random()*0.6;
 	var growAmount=-0.5+Math.random()*1.5;
-	var sweepAmount=-0.05+Math.random()*0.1;
-	var climbRate=0.05+Math.random()*0.95;
+	var sweepAmount=-0.1+Math.random()*0.2;
+	var sweepAmount2=-0.1+Math.random()*0.2;
+	var climbRate=0.15+Math.random()*0.85;
 	var trunkKink=Math.random()*0.3;
 	var taperRate=0.7+Math.random()*0.3;
 	var radiusFalloffRate=0.74+Math.random()*0.05;
@@ -926,6 +943,7 @@ function randomTree(){
 		"dropAmount":dropAmount,
 		"growAmount":growAmount,
 		"sweepAmount":sweepAmount,
+		"sweepAmount2":sweepAmount2,
 		"maxRadius":0.111,
 		"climbRate":climbRate,
 		"trunkKink":trunkKink,
@@ -949,6 +967,7 @@ function randomTree(){
 	myTree.gene.dropAmount=dropAmount;
 	myTree.gene.growAmount=growAmount;
 	myTree.gene.sweepAmount=sweepAmount;
+	myTree.gene.sweepAmount2=sweepAmount2;
 	myTree.gene.climbRate=climbRate;
 	myTree.gene.trunkKink=trunkKink;
 	myTree.gene.taperRate=taperRate;
@@ -959,6 +978,8 @@ function randomTree(){
 	
 	return myTree;
 }
+
+
 
 function treeGeometry(myTree){
 	var treeGeo=new THREE.Geometry();

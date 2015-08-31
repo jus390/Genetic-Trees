@@ -243,8 +243,9 @@ function randomTree(){
 	var branchFactor=2.0+Math.random()*2.0;
 	var dropAmount=-0.3+Math.random()*0.6;
 	var growAmount=-0.5+Math.random()*1.5;
-	var sweepAmount=-0.05+Math.random()*0.1;
-	var climbRate=0.05+Math.random()*0.95;
+	var sweepAmount=-0.1+Math.random()*0.2;
+	var sweepAmount2=-0.1+Math.random()*0.2;
+	var climbRate=0.15+Math.random()*0.85;
 	var trunkKink=Math.random()*0.3;
 	var taperRate=0.7+Math.random()*0.3;
 	var radiusFalloffRate=0.74+Math.random()*0.05;
@@ -255,7 +256,7 @@ function randomTree(){
 		"segments":6,
 		"levels":5,
 		"vMultiplier":1.16,
-		"twigScale":0.2,
+		"twigScale":0.22,
 		"initalBranchLength":initalBranchLength,
 		"lengthFalloffFactor":lengthFalloffFactor,
 		"lengthFalloffPower":lengthFalloffPower,
@@ -265,6 +266,7 @@ function randomTree(){
 		"dropAmount":dropAmount,
 		"growAmount":growAmount,
 		"sweepAmount":sweepAmount,
+		"sweepAmount2":sweepAmount2,
 		"maxRadius":0.111,
 		"climbRate":climbRate,
 		"trunkKink":trunkKink,
@@ -288,6 +290,7 @@ function randomTree(){
 	myTree.gene.dropAmount=dropAmount;
 	myTree.gene.growAmount=growAmount;
 	myTree.gene.sweepAmount=sweepAmount;
+	myTree.gene.sweepAmount2=sweepAmount2;
 	myTree.gene.climbRate=climbRate;
 	myTree.gene.trunkKink=trunkKink;
 	myTree.gene.taperRate=taperRate;
