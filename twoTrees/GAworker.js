@@ -152,6 +152,12 @@ function treeLightFitness(myTree,treeLoc,useFacing,useTrunk){
 				fits[i]=Math.abs(dot(v,n));
 			}
 			
+			dist=length(cross(v,subVec(p,p0)))/length(v);
+			
+			if(dist>0.3){
+				continue;
+			}
+			
 			d=-1*dot(p,n);
 			
 			var t=-1*(dot(p0,n)+d)/dot(v,n);
@@ -190,6 +196,11 @@ function treeLightFitness(myTree,treeLoc,useFacing,useTrunk){
 						fits[i]=Math.abs(dot(v,n));
 					}
 					
+					dist=length(cross(v,subVec(p,p0)))/length(v);
+			
+					if(dist>0.3){
+						continue;
+					}
 					
 					d=-1*dot(p,n);
 					
@@ -285,6 +296,12 @@ function treesLightFitness(myTree,treeLoc,tree2,treeLoc2,useFacing,useTrunk){
 				fits[i]=Math.abs(dot(v,n));
 			}
 			
+			dist=length(cross(v,subVec(p,p0)))/length(v);
+			
+			if(dist>0.3){
+				continue;
+			}
+			
 			d=-1*dot(p,n);
 			
 			var t=-1*(dot(p0,n)+d)/dot(v,n);
@@ -332,6 +349,12 @@ function treesLightFitness(myTree,treeLoc,tree2,treeLoc2,useFacing,useTrunk){
 					fits[i]=Math.abs(dot(v,n));
 				}
 				
+				dist=length(cross(v,subVec(p,p0)))/length(v);
+			
+				if(dist>0.3){
+					continue;
+				}
+				
 				d=-1*dot(p,n);
 				
 				var t=-1*(dot(p0,n)+d)/dot(v,n);
@@ -370,6 +393,11 @@ function treesLightFitness(myTree,treeLoc,tree2,treeLoc2,useFacing,useTrunk){
 						fits[i]=Math.abs(dot(v,n));
 					}
 					
+					dist=length(cross(v,subVec(p,p0)))/length(v);
+			
+					if(dist>0.3){
+						continue;
+					}
 					
 					d=-1*dot(p,n);
 					
@@ -413,6 +441,11 @@ function treesLightFitness(myTree,treeLoc,tree2,treeLoc2,useFacing,useTrunk){
 						fits[i]=Math.abs(dot(v,n));
 					}
 					
+					dist=length(cross(v,subVec(p,p0)))/length(v);
+			
+					if(dist>0.3){
+						continue;
+					}
 					
 					d=-1*dot(p,n);
 					
