@@ -8,4 +8,4 @@ This repository contains two demos:
 * twoTrees: This scene contains two trees. It first optimizes the tree closer to the light and then the other. It shows how the other tree adats to the occlusion of the first tree.
 
 ## Running the app
-To run the app simply serve each folder with your a http server.
+To run the app simply serve each folder with a http server.
